@@ -1,0 +1,15 @@
+[{
+  "query": "mutation AddLibrary($title: String!, $year: Int!, $token: String!) { addLibrary(title: $title, year: $year, token: $token) { title year }}",
+  "variables": {
+    "title": "O Pequeno Principe",
+    "year": 1943
+    }
+},
+{
+  "query": "mutation AddLibrary($title: String!, $year: Int!, $token: String!) { addLibrary(title: $title, year: $year, token: $token) { title year }}",
+  "variables": {
+    "title": "Guia do Mochileiro das Galáxias",
+    "year": 1979
+    }
+}
+]

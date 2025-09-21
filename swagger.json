@@ -1,0 +1,64 @@
+{
+  "openapi": "3.0.0",
+  "info": { "title": "Biblioteca API", "version": "1.0.0" },
+  "paths": {
+    "/users/register": {
+      "post": {
+        "summary": "Registrar usuário",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/User" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Usuário criado" }, 
+                      "400": { "description": "Erro" } }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "summary": "Login usuário",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/User" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "Retorna token JWT" }, 
+                        "400": { "description": "Erro no login do usuario" } }
+      }
+    },
+    "/library/addLibrary": {
+      "post": {
+        "summary": "Cadastrar livro (JWT obrigatório)",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Library" }
+            }
+          }
+        },
+        "responses": { "201": { "description": "Livro cadastrado com sucesso, retorno 201" }, "400": { "description": "Erro" } }
+      }
+    },
+    "/library/listLibraries": {
+      "get": {
+        "summary": "Listar libraries",
+        "responses": { "200": { "description": "Lista de livros cadastrados" } }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": { "type": "object", "properties": { "name": { "type": "string" }, "password": { "type": "string" } }, "required": ["name","password"] },
+      "Library": { "type": "object", "properties": { "title": { "type": "string" }, "year": { "type": "integer" } }, "required": ["title","year"] }
+    },
+    "securitySchemes": { "bearerAuth": { "type": "http", "scheme": "bearer", "bearerFormat": "JWT" } }
+  }
+}
