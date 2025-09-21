@@ -18,10 +18,9 @@ describe('Library Controller', () => {
                 .send(postLogin);
 
             token = respostaLogin.body.token;
-            expect(token).to.be.a('string');
         });
 
-        it('Deve permitir cadastro de livro com token', async () => {
+        it('Deve permitir cadastro de livro com token valido', async () => {
             const resposta = await request(app)
                 .post('/library/addLibrary')
                 .set('Authorization', `Bearer ${token}`)
@@ -55,6 +54,20 @@ describe('Library Controller', () => {
 
             expect(resposta.status).to.equal(401);
             expect(resposta.body).to.have.property('error');
+        });
+
+        it('Usando Mocks: Se eu cadastro um livro sem token, recebo 401', async () => {
+            sinon.stub(libraryService, 'addLibrary').resolves({
+            title: cadastroLivros[0].title,
+            year: cadastroLivros[0].year
+        });
+
+        const resposta = await request(app)
+            .post('/library/addLibrary')
+            .send(cadastroLivros);
+
+            expect(resposta.status).to.equal(401);
+            expect(resposta.body).to.have.property('error', 'Token não fornecido');
         });
 
         it('Não deve permitir cadastro de livro duplicado', async () => {

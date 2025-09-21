@@ -4,7 +4,7 @@ const router = express.Router();
 const userController = require('./controllers/userController');
 const libraryController = require('./controllers/libraryController');
 
-router.use('/users', userController); // userController exports router
-router.use('/library', libraryController.router); // libraryController exports router + handlers
+router.use('/users', userController);
+router.use('/library', libraryController.router);
 
 module.exports = router;

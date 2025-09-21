@@ -29,7 +29,7 @@ describe('GraphQL - Teste de cadastro na Biblioteca API', () => {
   
   });
   
-  it('Deve cadastrar um livro com token válido', async () => {
+  it('Deve permitir cadastro de livro com token válido', async () => {
     const resposta = await request(process.env.BASE_URL_GRAPHQL)
       .post('')
       .send({

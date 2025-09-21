@@ -33,7 +33,7 @@ describe('Library External', () => {
 
    });
 
-   it.only('Não deve permitir cadastro de livro duplicado', async () => {
+       it('Não deve permitir cadastro de livro duplicado', async () => {
             await request(process.env.BASE_URL_REST)
                 .post('/library/addLibrary')
                 .set('Authorization', `Bearer ${token}`)
@@ -46,6 +46,6 @@ describe('Library External', () => {
 
         expect(respostaDuplicado.status).to.equal(400);
         expect(respostaDuplicado.body).to.have.property('error', 'Titulo duplicado: Biblioteca ja possui esse titulo cadastrado');
-   });    
+      });    
   });
 });
